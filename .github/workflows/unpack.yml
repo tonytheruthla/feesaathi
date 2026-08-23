@@ -1,0 +1,20 @@
+name: Unpack source
+on:
+  push:
+    paths: ["feesaathi-src.tar.gz"]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  unpack:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          tar xzf feesaathi-src.tar.gz --strip-components=1
+          rm -f feesaathi-src.tar.gz
+          git config user.name github-actions
+          git config user.email actions@github.com
+          git add -A
+          git commit -m "Unpack source tree" || echo no changes
+          git push
