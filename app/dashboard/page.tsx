@@ -140,48 +140,55 @@ export default function Dashboard() {
     <>
       <Nav />
       <main className="mx-auto max-w-3xl px-4 py-7">
-        <div className="anim-fade-up flex items-center justify-between gap-3">
-          <input
-            type="month"
-            value={month}
-            onChange={(e) => setMonth(e.target.value)}
-            className="input w-auto py-2"
-          />
-          <button onClick={generate} disabled={busy} className="btn-primary">
-            {busy ? "Working…" : "Generate this month's dues"}
-          </button>
-        </div>
-
-        {/* Stat cards */}
-        <div className="anim-fade-up mt-5 grid grid-cols-2 gap-4" style={{ animationDelay: "0.05s" }}>
-          <div
-            className="card relative overflow-hidden p-5 text-white"
-            style={{ background: "linear-gradient(135deg,#065f46 0%,#0f766e 100%)", borderColor: "transparent" }}
-          >
-            <p className="text-[11px] font-semibold uppercase tracking-widest text-emerald-200">
-              Collected
+        {/* Hero balance card */}
+        <div className="hero-card anim-fade-up">
+          <div className="flex items-center justify-between gap-3">
+            <p className="text-[11px] font-semibold uppercase tracking-widest text-emerald-200/90">
+              Pending this month
             </p>
-            <p className="tnum mt-1 text-3xl font-bold">
-              ₹{collected.toLocaleString("en-IN")}
-            </p>
-            <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-white/20">
-              <div
-                className="h-full rounded-full bg-emerald-300 transition-all duration-700 ease-out"
-                style={{ width: `${pct}%` }}
-              />
-            </div>
-            <p className="mt-1.5 text-xs text-emerald-100/80">{pct}% of ₹{total.toLocaleString("en-IN")}</p>
+            <input
+              type="month"
+              value={month}
+              onChange={(e) => setMonth(e.target.value)}
+              className="rounded-full border border-white/25 bg-white/10 px-3 py-1 text-xs font-medium text-white outline-none [color-scheme:dark]"
+            />
           </div>
-          <div className="card p-5">
-            <p className="text-[11px] font-semibold uppercase tracking-widest text-amber-600">
-              Pending
-            </p>
-            <p className="tnum mt-1 text-3xl font-bold text-slate-900">
-              ₹{pending.toLocaleString("en-IN")}
-            </p>
-            <p className="mt-4 text-xs text-slate-400">
-              {pendingDues.length} student{pendingDues.length === 1 ? "" : "s"} yet to pay
-            </p>
+          <p className="font-display tnum mt-2 text-[44px] font-bold leading-none tracking-tight">
+            ₹{pending.toLocaleString("en-IN")}
+          </p>
+          <div className="mt-4 h-2 overflow-hidden rounded-full bg-white/20">
+            <div
+              className="h-full rounded-full bg-emerald-300 transition-all duration-700 ease-out"
+              style={{ width: `${pct}%` }}
+            />
+          </div>
+          <div className="mt-2 flex items-center justify-between text-xs text-emerald-100/85">
+            <span className="tnum">
+              ₹{collected.toLocaleString("en-IN")} collected · {pct}%
+            </span>
+            <span>
+              {pendingDues.length} student{pendingDues.length === 1 ? "" : "s"} left
+            </span>
+          </div>
+          <div className="mt-5 flex gap-2.5">
+            {pendingDues.length > 0 ? (
+              <button onClick={remindAll} className="btn-onhero flex-1">
+                Remind all on WhatsApp
+              </button>
+            ) : (
+              <button onClick={generate} disabled={busy} className="btn-onhero flex-1">
+                {busy ? "Working…" : "Generate this month's dues"}
+              </button>
+            )}
+            {pendingDues.length > 0 && (
+              <button
+                onClick={generate}
+                disabled={busy}
+                className="btn border border-white/30 bg-white/10 px-4 text-white"
+              >
+                {busy ? "…" : "+ Dues"}
+              </button>
+            )}
           </div>
         </div>
 
@@ -213,12 +220,12 @@ export default function Dashboard() {
           {loaded &&
             pendingDues.map((d) => (
               <div key={d.id} className="card card-hover flex items-center justify-between p-4">
-                <div className="flex items-center gap-3.5">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-amber-100 to-amber-50 text-sm font-bold text-amber-700">
+                <div className="flex min-w-0 items-center gap-3.5">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-amber-100 to-amber-50 text-sm font-bold text-amber-700">
                     {d.student.name.charAt(0)}
                   </div>
-                  <div>
-                    <p className="font-semibold leading-tight">{d.student.name}</p>
+                  <div className="min-w-0">
+                    <p className="truncate font-semibold leading-tight">{d.student.name}</p>
                     <p className="tnum mt-0.5 text-sm text-slate-500">
                       ₹{d.amount.toLocaleString("en-IN")}
                       {d.reminders[0] && (
@@ -229,12 +236,12 @@ export default function Dashboard() {
                     </p>
                   </div>
                 </div>
-                <div className="flex gap-2">
-                  <button onClick={() => remind(d)} className="btn-primary px-3.5 py-2">
+                <div className="flex shrink-0 gap-1.5">
+                  <button onClick={() => remind(d)} className="btn-primary whitespace-nowrap px-3.5 py-2 text-xs">
                     Remind
                   </button>
-                  <button onClick={() => togglePaid(d)} className="btn-ghost px-3.5 py-2">
-                    Mark paid
+                  <button onClick={() => togglePaid(d)} className="btn-ghost whitespace-nowrap px-3 py-2 text-xs">
+                    Paid ✓
                   </button>
                 </div>
               </div>
@@ -266,8 +273,8 @@ export default function Dashboard() {
                     </p>
                   </div>
                 </div>
-                <div className="flex items-center gap-2">
-                  <a href={`/receipt/${d.id}`} target="_blank" className="btn-ghost px-3.5 py-2">
+                <div className="flex shrink-0 items-center gap-1.5">
+                  <a href={`/receipt/${d.id}`} target="_blank" className="btn-ghost whitespace-nowrap px-3 py-2 text-xs">
                     Receipt
                   </a>
                   <button
