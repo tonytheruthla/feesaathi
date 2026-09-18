@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
-import "@fontsource-variable/plus-jakarta-sans";
-import "@fontsource-variable/fraunces";
+import "@fontsource-variable/schibsted-grotesk";
+import "@fontsource-variable/bricolage-grotesque";
 import "./globals.css";
 import SWRegister from "@/components/SWRegister";
 
