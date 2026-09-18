@@ -7,6 +7,7 @@ const tabs = [
   { href: "/dashboard", label: "Dues" },
   { href: "/students", label: "Students" },
   { href: "/classes", label: "Classes" },
+  { href: "/announce", label: "Announce" },
   { href: "/settings", label: "Settings" },
 ];
 
@@ -28,14 +29,14 @@ export default function Nav() {
         >
           Fee<span className="text-slate-900">Saathi</span>
         </Link>
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-0.5 overflow-x-auto">
           {tabs.map((t) => {
             const active = pathname.startsWith(t.href);
             return (
               <Link
                 key={t.href}
                 href={t.href}
-                className={`relative rounded-full px-3.5 py-1.5 text-sm font-medium transition-all duration-200 ${
+                className={`relative whitespace-nowrap rounded-full px-3 py-1.5 text-sm font-medium transition-all duration-200 ${
                   active
                     ? "bg-emerald-600/10 text-emerald-800 shadow-[inset_0_0_0_1px_rgba(16,185,129,0.25)]"
                     : "text-slate-500 hover:bg-slate-900/5 hover:text-slate-800"
@@ -47,7 +48,7 @@ export default function Nav() {
           })}
           <button
             onClick={logout}
-            className="ml-1 rounded-full px-3 py-1.5 text-sm text-slate-400 transition-colors hover:bg-slate-900/5 hover:text-slate-600"
+            className="ml-1 whitespace-nowrap rounded-full px-3 py-1.5 text-sm text-slate-400 transition-colors hover:bg-slate-900/5 hover:text-slate-600"
           >
             Logout
           </button>
