@@ -3,10 +3,10 @@
 @tailwind utilities;
 
 :root {
-  --font-sans: "Plus Jakarta Sans Variable", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Fraunces Variable", Georgia, serif;
-  --ink: #0c1a14;
-  --surface: #f6f8f7;
+  --font-sans: "Schibsted Grotesk Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Bricolage Grotesque Variable", ui-sans-serif, system-ui, sans-serif;
+  --ink: #0b1712;
+  --surface: #f3f6f4;
 }
 
 html {
@@ -16,8 +16,8 @@ html {
 body {
   font-family: var(--font-sans);
   background:
-    radial-gradient(1200px 600px at 85% -10%, rgba(16, 185, 129, 0.08), transparent 60%),
-    radial-gradient(900px 500px at -10% 20%, rgba(13, 148, 136, 0.06), transparent 55%),
+    radial-gradient(1100px 520px at 90% -12%, rgba(16, 185, 129, 0.10), transparent 60%),
+    radial-gradient(800px 460px at -12% 24%, rgba(13, 148, 136, 0.07), transparent 55%),
     var(--surface);
   background-attachment: fixed;
   color: var(--ink);
@@ -27,8 +27,12 @@ body {
 
 .font-display {
   font-family: var(--font-display);
-  font-variation-settings: "SOFT" 40, "WONK" 0;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.025em;
+}
+
+/* Mobile app shell: room for the bottom tab bar */
+@media (max-width: 639px) {
+  main { padding-bottom: 104px !important; }
 }
 
 /* ---------- Motion ---------- */
@@ -82,17 +86,27 @@ body {
 /* ---------- Components ---------- */
 
 .card {
-  @apply rounded-2xl border border-slate-200/70 bg-white/80 shadow-[0_1px_2px_rgba(12,26,20,0.04),0_8px_24px_-12px_rgba(12,26,20,0.10)] backdrop-blur-sm;
+  @apply rounded-[20px] border border-slate-900/[0.06] bg-white shadow-[0_1px_2px_rgba(11,23,18,0.04),0_10px_28px_-14px_rgba(11,23,18,0.12)];
   transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s ease, border-color 0.25s ease;
 }
 .card-hover:hover {
   transform: translateY(-2px);
-  box-shadow: 0 2px 4px rgba(12, 26, 20, 0.04), 0 16px 36px -14px rgba(12, 26, 20, 0.16);
-  border-color: rgba(16, 185, 129, 0.25);
+  box-shadow: 0 2px 4px rgba(11, 23, 18, 0.04), 0 18px 40px -16px rgba(11, 23, 18, 0.18);
+  border-color: rgba(16, 185, 129, 0.28);
+}
+
+/* Fintech hero balance card */
+.hero-card {
+  @apply relative overflow-hidden rounded-[24px] p-6 text-white;
+  background:
+    radial-gradient(420px 220px at 110% -30%, rgba(255, 255, 255, 0.16), transparent 60%),
+    radial-gradient(320px 200px at -20% 120%, rgba(45, 212, 191, 0.28), transparent 60%),
+    linear-gradient(135deg, #047857 0%, #065f46 55%, #134e4a 100%);
+  box-shadow: 0 2px 4px rgba(6, 95, 70, 0.25), 0 20px 44px -16px rgba(6, 95, 70, 0.55);
 }
 
 .btn {
-  @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold;
+  @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold;
   transition: transform 0.15s ease, box-shadow 0.2s ease, background-color 0.2s ease, opacity 0.2s ease;
 }
 .btn:active { transform: scale(0.97); }
@@ -109,12 +123,18 @@ body {
 .btn-primary:disabled { @apply opacity-50; transform: none; }
 
 .btn-ghost {
-  @apply btn border border-slate-200 bg-white/70 text-slate-700;
+  @apply btn border border-slate-900/10 bg-white text-slate-700;
 }
-.btn-ghost:hover { @apply border-emerald-200 bg-white text-emerald-800; }
+.btn-ghost:hover { @apply border-emerald-300 text-emerald-800; }
+
+.btn-onhero {
+  @apply btn bg-white/95 text-emerald-900;
+  box-shadow: 0 6px 18px -6px rgba(0, 0, 0, 0.35);
+}
+.btn-onhero:hover { @apply bg-white; transform: translateY(-1px); }
 
 .input {
-  @apply w-full rounded-xl border border-slate-200 bg-white/90 px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400;
+  @apply w-full rounded-2xl border border-slate-900/10 bg-white px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 .input:focus {
@@ -127,7 +147,7 @@ body {
 }
 
 .skeleton {
-  @apply rounded-xl bg-slate-100;
+  @apply rounded-2xl bg-slate-100;
   background-image: linear-gradient(90deg, transparent, rgba(255,255,255,0.9), transparent);
   background-size: 400px 100%;
   background-repeat: no-repeat;
@@ -136,3 +156,20 @@ body {
 
 /* Number tabular alignment for money */
 .tnum { font-variant-numeric: tabular-nums; }
+
+/* ---------- Bottom tab bar (mobile) ---------- */
+
+.bottom-nav {
+  @apply fixed inset-x-0 bottom-0 z-30 sm:hidden;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-top: 1px solid rgba(11, 23, 18, 0.07);
+  box-shadow: 0 -8px 28px -18px rgba(11, 23, 18, 0.25);
+}
+.bottom-nav-item {
+  @apply flex flex-1 flex-col items-center gap-1 pb-2 pt-2.5 text-[10.5px] font-semibold text-slate-400 transition-colors;
+}
+.bottom-nav-item.active { @apply text-emerald-700; }
+.bottom-nav-item svg { width: 22px; height: 22px; }
