@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { Logo } from "@/components/Logo";
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -37,8 +38,8 @@ export default function RegisterPage() {
   return (
     <main className="mx-auto flex min-h-screen max-w-sm flex-col justify-center px-6 py-10">
       <div className="anim-fade-up">
-        <Link href="/" className="font-display text-2xl font-semibold text-emerald-800">
-          Fee<span className="text-slate-900">Saathi</span>
+        <Link href="/" className="inline-block text-2xl">
+          <Logo />
         </Link>
         <h1 className="mt-6 text-xl font-bold">Create your account</h1>
         <p className="mt-1 text-sm text-slate-500">
@@ -72,6 +73,12 @@ export default function RegisterPage() {
           <Link href="/login" className="font-semibold text-emerald-700 transition-colors hover:text-emerald-800">
             Login
           </Link>
+        </p>
+        <p className="mt-8 text-xs text-slate-400">
+          Need help?{" "}
+          <a href="mailto:rahul@feesaathi.com" className="text-slate-500 underline-offset-2 hover:underline">
+            rahul@feesaathi.com
+          </a>
         </p>
       </div>
     </main>
