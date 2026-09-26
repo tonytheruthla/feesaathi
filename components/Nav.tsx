@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import { Logo } from "./Logo";
 
 const tabs = [
   { href: "/dashboard", label: "Dues" },
@@ -62,17 +63,8 @@ export default function Nav() {
     <>
       <nav className="sticky top-0 z-20 border-b border-white/60 bg-white/70 backdrop-blur-xl">
         <div className="mx-auto flex max-w-3xl items-center justify-between px-4 py-3">
-          <Link
-            href="/dashboard"
-            className="font-display flex items-center gap-2 text-xl font-bold tracking-tight text-emerald-600 transition-opacity hover:opacity-80"
-          >
-            <svg viewBox="0 0 100 100" className="h-6 w-6" aria-hidden="true">
-              <circle cx="38" cy="31" r="14" fill="#059669" />
-              <path d="M12 88 C12 62 24 52 38 52 C52 52 64 62 64 88 Z" fill="#059669" />
-              <circle cx="68" cy="41" r="11.5" fill="#0b1712" />
-              <path d="M46 88 C46 68 56 60 68 60 C80 60 90 68 90 88 Z" fill="#0b1712" />
-            </svg>
-            <span>Fee<span className="text-slate-900">Saathi</span></span>
+          <Link href="/dashboard" className="text-xl transition-opacity hover:opacity-80">
+            <Logo />
           </Link>
           <div className="hidden items-center gap-0.5 sm:flex">
             {tabs.map((t) => {
