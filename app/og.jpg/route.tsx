@@ -1,6 +1,7 @@
 import { ImageResponse } from "next/og";
 import { readFileSync } from "fs";
 import path from "path";
+import { MARK_PATH } from "@/components/Logo";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -18,13 +19,10 @@ function localFont(pkg: string, file: string): ArrayBuffer | null {
   }
 }
 
-function Mark({ size, a, b }: { size: number; a: string; b: string }) {
+function Mark({ size, color }: { size: number; color: string }) {
   return (
-    <svg viewBox="0 0 100 100" width={size} height={size}>
-      <circle cx="38" cy="31" r="14" fill={a} />
-      <path d="M12 88 C12 62 24 52 38 52 C52 52 64 62 64 88 Z" fill={a} />
-      <circle cx="68" cy="41" r="11.5" fill={b} />
-      <path d="M46 88 C46 68 56 60 68 60 C80 60 90 68 90 88 Z" fill={b} />
+    <svg viewBox="0 0 1000 1000" width={size} height={size}>
+      <path fill={color} fillRule="evenodd" d={MARK_PATH} />
     </svg>
   );
 }
@@ -46,7 +44,7 @@ export async function GET() {
       <div style={{ width: 1200, height: 630, display: "flex", fontFamily: fs }}>
         <div style={{ width: 720, height: 630, background: "#f3f6f4", padding: "70px 64px", display: "flex", flexDirection: "column" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 14, fontFamily: fd, fontSize: 44, fontWeight: 700, letterSpacing: -1.3 }}>
-            <Mark size={56} a={EMERALD} b={INK} />
+            <Mark size={56} color={EMERALD} />
             <div style={{ display: "flex" }}>
               <span style={{ color: EMERALD }}>Fee</span>
               <span style={{ color: INK }}>Saathi</span>
@@ -63,7 +61,7 @@ export async function GET() {
           </div>
         </div>
         <div style={{ width: 480, height: 630, display: "flex", alignItems: "center", justifyContent: "center", backgroundImage: "linear-gradient(135deg, #047857, #065f46 55%, #134e4a)" }}>
-          <Mark size={300} a="#ffffff" b="#6ee7b7" />
+          <Mark size={300} color="#ffffff" />
         </div>
       </div>
     ),
