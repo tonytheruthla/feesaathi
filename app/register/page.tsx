@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Logo } from "@/components/Logo";
+import { GoogleButton } from "@/components/GoogleButton";
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -45,6 +46,7 @@ export default function RegisterPage() {
         <p className="mt-1 text-sm text-slate-500">
           Two minutes now, hours saved every month
         </p>
+        <GoogleButton mode="signup" />
         <form onSubmit={submit} className="mt-6 space-y-4">
           <input className="input" placeholder="Your name" value={form.name}
             onChange={(e) => set("name", e.target.value)} required />
