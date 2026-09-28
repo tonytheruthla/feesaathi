@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Logo } from "@/components/Logo";
+import { GoogleButton } from "@/components/GoogleButton";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -34,6 +35,7 @@ export default function LoginPage() {
         </Link>
         <h1 className="mt-6 text-xl font-bold">Welcome back</h1>
         <p className="mt-1 text-sm text-slate-500">Login to your account</p>
+        <GoogleButton mode="signin" />
         <form onSubmit={submit} className="mt-6 space-y-4">
           <input className="input" type="email" placeholder="Email" value={email}
             onChange={(e) => setEmail(e.target.value)} required />
