@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import "@fontsource-variable/schibsted-grotesk";
+import "@fontsource-variable/zalando-sans";
 import "@fontsource-variable/bricolage-grotesque";
 import "./globals.css";
 import SWRegister from "@/components/SWRegister";
