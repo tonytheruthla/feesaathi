@@ -14,7 +14,7 @@ export function Mark({ className = "h-6 w-6", color = "#059669" }: { className?:
 export function Logo({ tone = "light", className = "" }: { tone?: "light" | "dark"; className?: string }) {
   const dark = tone === "dark";
   return (
-    <span className={`font-display inline-flex items-center gap-2 font-bold tracking-tight ${className}`}>
+    <span className={`font-logo inline-flex items-center gap-2 font-bold ${className}`}>
       <Mark className="h-[1.3em] w-[1.3em]" color={dark ? "#ffffff" : "#059669"} />
       <span>
         <span className={dark ? "text-emerald-200" : "text-emerald-600"}>Fee</span>
