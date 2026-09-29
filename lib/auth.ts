@@ -5,6 +5,14 @@ import { tutors } from "./db";
 
 const JWT_SECRET = process.env.JWT_SECRET || "dev-secret";
 const COOKIE = "feesaathi_session";
+export const SESSION_COOKIE = COOKIE;
+export const sessionCookieOptions = {
+  httpOnly: true,
+  sameSite: "lax" as const,
+  secure: process.env.NODE_ENV === "production",
+  maxAge: 60 * 60 * 24 * 30,
+  path: "/",
+};
 
 export async function hashPassword(pw: string) {
   return bcrypt.hash(pw, 10);
@@ -19,13 +27,7 @@ export function signSession(tutorId: string) {
 }
 
 export function setSessionCookie(token: string) {
-  cookies().set(COOKIE, token, {
-    httpOnly: true,
-    sameSite: "lax",
-    secure: process.env.NODE_ENV === "production",
-    maxAge: 60 * 60 * 24 * 30,
-    path: "/",
-  });
+  cookies().set(COOKIE, token, sessionCookieOptions);
 }
 
 export function clearSessionCookie() {
