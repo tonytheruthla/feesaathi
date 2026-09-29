@@ -3,8 +3,10 @@
 @tailwind utilities;
 
 :root {
-  --font-sans: "Schibsted Grotesk Variable", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Bricolage Grotesque Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Zalando Sans Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Zalando Sans Variable", ui-sans-serif, system-ui, sans-serif;
+  /* The FeeSaathi wordmark keeps Bricolage Grotesque: it is part of the logo lockup. */
+  --font-logo: "Bricolage Grotesque Variable", ui-sans-serif, system-ui, sans-serif;
   --ink: #0b1712;
   --surface: #f3f6f4;
 }
@@ -28,6 +30,11 @@ body {
 .font-display {
   font-family: var(--font-display);
   letter-spacing: -0.025em;
+}
+
+.font-logo {
+  font-family: var(--font-logo);
+  letter-spacing: -0.03em;
 }
 
 /* Mobile app shell: room for the bottom tab bar */
