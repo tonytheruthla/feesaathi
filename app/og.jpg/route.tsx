@@ -29,28 +29,28 @@ function Mark({ size, color }: { size: number; color: string }) {
 
 export async function GET() {
   const body = "WhatsApp fee reminders, receipts & class updates for tutors. Free for 10 students.";
-  const display = localFont("bricolage-grotesque", "bricolage-grotesque-latin-700-normal.woff");
-  const sans = localFont("schibsted-grotesk", "schibsted-grotesk-latin-500-normal.woff");
-  const sansBold = localFont("schibsted-grotesk", "schibsted-grotesk-latin-700-normal.woff");
+  const logo = localFont("bricolage-grotesque", "bricolage-grotesque-latin-700-normal.woff");
+  const sans = localFont("zalando-sans", "zalando-sans-latin-500-normal.woff");
+  const sansBold = localFont("zalando-sans", "zalando-sans-latin-700-normal.woff");
   const fonts: { name: string; data: ArrayBuffer; weight: 500 | 700; style: "normal" }[] = [];
-  if (display) fonts.push({ name: "Bricolage", data: display, weight: 700, style: "normal" });
-  if (sans) fonts.push({ name: "Schibsted", data: sans, weight: 500, style: "normal" });
-  if (sansBold) fonts.push({ name: "Schibsted", data: sansBold, weight: 700, style: "normal" });
-  const fd = display ? "Bricolage" : "sans-serif";
-  const fs = sans ? "Schibsted" : "sans-serif";
+  if (logo) fonts.push({ name: "Bricolage", data: logo, weight: 700, style: "normal" });
+  if (sans) fonts.push({ name: "Zalando", data: sans, weight: 500, style: "normal" });
+  if (sansBold) fonts.push({ name: "Zalando", data: sansBold, weight: 700, style: "normal" });
+  const fl = logo ? "Bricolage" : "sans-serif";
+  const fs = sans ? "Zalando" : "sans-serif";
 
   return new ImageResponse(
     (
       <div style={{ width: 1200, height: 630, display: "flex", fontFamily: fs }}>
         <div style={{ width: 720, height: 630, background: "#f3f6f4", padding: "70px 64px", display: "flex", flexDirection: "column" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 14, fontFamily: fd, fontSize: 44, fontWeight: 700, letterSpacing: -1.3 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 14, fontFamily: fl, fontSize: 44, fontWeight: 700, letterSpacing: -1.3 }}>
             <Mark size={56} color={EMERALD} />
             <div style={{ display: "flex" }}>
               <span style={{ color: EMERALD }}>Fee</span>
               <span style={{ color: INK }}>Saathi</span>
             </div>
           </div>
-          <div style={{ display: "flex", flexDirection: "column", marginTop: 34, fontFamily: fd, fontSize: 58, fontWeight: 700, lineHeight: 1.04, letterSpacing: -2, color: INK, whiteSpace: "nowrap" }}>
+          <div style={{ display: "flex", flexDirection: "column", marginTop: 34, fontFamily: fs, fontSize: 58, fontWeight: 700, lineHeight: 1.04, letterSpacing: -1.5, color: INK, whiteSpace: "nowrap" }}>
             <div>Fees time pe</div>
             <div>aati hai?</div>
             <div style={{ color: EMERALD }}>Matlab FeeSaathi hai.</div>
