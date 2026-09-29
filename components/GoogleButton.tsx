@@ -43,6 +43,9 @@ export function GoogleButton({ mode }: { mode: "signup" | "signin" }) {
   const [busy, setBusy] = useState(false);
 
   useEffect(() => {
+    // Errors coming back from the redirect flow (/api/auth/google/callback).
+    const reason = new URLSearchParams(window.location.search).get("google");
+    if (reason) setError(reason === "off" ? "Google sign-in is not set up yet" : "Google sign-in failed. Please try again.");
     let cancelled = false;
     (async () => {
       try {
@@ -51,9 +54,15 @@ export function GoogleButton({ mode }: { mode: "signup" | "signin" }) {
         const g = await loadGsi();
         if (cancelled || !box.current) return;
         setEnabled(true);
+        // Inside the installed Android app (TWA / home-screen PWA) popups are
+        // unreliable, so use Google's full-page redirect flow there.
+        const installed =
+          window.matchMedia("(display-mode: standalone)").matches ||
+          document.referrer.startsWith("android-app://");
         g.accounts.id.initialize({
           client_id: clientId,
-          ux_mode: "popup",
+          ux_mode: installed ? "redirect" : "popup",
+          login_uri: `${window.location.origin}/api/auth/google/callback`,
           callback: async ({ credential }: { credential: string }) => {
             setBusy(true);
             setError("");
